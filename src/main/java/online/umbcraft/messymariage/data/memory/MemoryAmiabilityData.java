@@ -2,7 +2,6 @@ package online.umbcraft.messymariage.data.memory;
 
 import online.umbcraft.messymariage.data.AmiabilityData;
 import online.umbcraft.messymariage.util.ExpLevelConverter;
-import online.umbcraft.messymariage.util.PlayerPair;
 
 import java.util.HashMap;
 import java.util.Map;

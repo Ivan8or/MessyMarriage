@@ -10,4 +10,6 @@ public interface AmiabilityData {
     Optional<Integer> getAmiabilityExp(UUID pair);
 
     void setExp(UUID pair, int amount);
+
+
 }

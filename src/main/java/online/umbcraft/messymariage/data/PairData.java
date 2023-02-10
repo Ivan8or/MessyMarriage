@@ -1,9 +1,16 @@
-package online.umbcraft.messymariage.util;
+package online.umbcraft.messymariage.data;
 
+import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
-public class PlayerPair {
-    public static UUID pairID(UUID a, UUID b) {
+public interface PairData {
+
+    Optional<UUID> getPartner(UUID pair, UUID player);
+    Optional<Set<UUID>> getMembers(UUID pair);
+
+
+    static UUID pairID(UUID a, UUID b) {
 
         // upper halves of each uuid
         long ah = a.getMostSignificantBits();
@@ -16,5 +23,6 @@ public class PlayerPair {
         // long multiplication conveniently overflows so as to fit perfectly into the result UUID
         return new UUID(al*bl, ah*bh);
     }
+
 
 }

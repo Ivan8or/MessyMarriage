@@ -2,7 +2,7 @@ package online.umbcraft.messymariage.amiability.adjusters;
 
 import online.umbcraft.messymariage.amiability.ExpDistributor;
 import online.umbcraft.messymariage.data.MarriageData;
-import online.umbcraft.messymariage.util.PlayerPair;
+import online.umbcraft.messymariage.data.PairData;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitScheduler;
@@ -50,13 +50,13 @@ public class AmiabilityByProximity {
     }
 
     public void processPair(Player p1, Player p2, Set<UUID> processedPairs) {
-        UUID pairID = PlayerPair.pairID(p1.getUniqueId(), p2.getUniqueId());
+        UUID pairID = PairData.pairID(p1.getUniqueId(), p2.getUniqueId());
 
         if(processedPairs.contains(pairID))
             return;
 
         double distance = p1.getLocation().distance(p2.getLocation());
-        boolean married = marriages.areMarried(pairID);
+        boolean married = marriages.isMarriage(pairID);
 
         int positiveAdjust = married ? 7 : 5;
         int negativeAdjust = married ? -3 : -1;
