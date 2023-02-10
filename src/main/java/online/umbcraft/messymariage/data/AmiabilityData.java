@@ -1,16 +1,23 @@
 package online.umbcraft.messymariage.data;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
-public abstract class AmiabilityData {
+public interface AmiabilityData {
 
-    final protected Map<UUID, Double> amiabilities = new HashMap<>();
+    Optional<Integer> getAmiabilityLevel(UUID pair);
+    Optional<Integer> getAmiabilityLevel(UUID a, UUID b);
 
-    public double getAmiability(UUID a, UUID b) {
-        return getAmiability(MarriagesData.pairID(a,b));
-    }
-    public abstract double getAmiability(UUID pair);
+    Optional<Integer> getAmiabilityExp(UUID pair);
+    Optional<Integer> getAmiabilityExp(UUID a, UUID b);
+
+    Optional<Integer> alterExp(UUID pair, int amount);
+    Optional<Integer> alterExp(UUID a, UUID b, int amount);
+
+    void setExp(UUID pair, int amount);]
+    void setExp(UUID a, UUID b, int amount);
+
+    boolean hasPair(UUID pair);
+    boolean hasPair(UUID a, UUID b);
 
 }
