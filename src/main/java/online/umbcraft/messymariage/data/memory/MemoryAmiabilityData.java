@@ -42,23 +42,6 @@ public class MemoryAmiabilityData implements AmiabilityData {
     }
 
     @Override
-    public Optional<Integer> alterExp(UUID pair, int amount) {
-        if(!amiabilityExp.containsKey(pair))
-            return Optional.empty();
-
-        int oldExp = amiabilityExp.get(pair);
-        int newExp = oldExp + amount;
-
-        amiabilityExp.put(pair, newExp);
-        return Optional.of(newExp);
-    }
-
-    @Override
-    public Optional<Integer> alterExp(UUID a, UUID b, int amount) {
-        return alterExp(PlayerPair.pairID(a,b), amount);
-    }
-
-    @Override
     public void setExp(UUID pair, int amount) {
         amiabilityExp.put(pair, amount);
     }

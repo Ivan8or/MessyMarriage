@@ -55,18 +55,6 @@ public class CachedAmiabilityData implements AmiabilityData {
     }
 
     @Override
-    public Optional<Integer> alterExp(UUID pair, int amount) {
-        Optional<Integer> exp = secondary.alterExp(pair, amount);
-        primary.setExp(pair, exp.get());
-        return exp;
-    }
-
-    @Override
-    public Optional<Integer> alterExp(UUID a, UUID b, int amount) {
-        return alterExp(PlayerPair.pairID(a,b), amount);
-    }
-
-    @Override
     public void setExp(UUID pair, int amount) {
         primary.setExp(pair, amount);
         secondary.setExp(pair, amount);

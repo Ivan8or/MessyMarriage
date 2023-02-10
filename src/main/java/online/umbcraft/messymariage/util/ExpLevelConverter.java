@@ -24,4 +24,8 @@ public class ExpLevelConverter {
         return CUMUL_LEVEL_EXP.length-1;
     }
 
+    public static int toExp(int level) {
+        return CUMUL_LEVEL_EXP[level];
+    }
+
 }
