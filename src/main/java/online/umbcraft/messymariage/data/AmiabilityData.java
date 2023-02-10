@@ -14,7 +14,7 @@ public interface AmiabilityData {
     Optional<Integer> alterExp(UUID pair, int amount);
     Optional<Integer> alterExp(UUID a, UUID b, int amount);
 
-    void setExp(UUID pair, int amount);]
+    void setExp(UUID pair, int amount);
     void setExp(UUID a, UUID b, int amount);
 
     boolean hasPair(UUID pair);
