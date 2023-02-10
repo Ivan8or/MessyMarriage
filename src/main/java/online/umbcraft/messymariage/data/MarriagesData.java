@@ -5,15 +5,15 @@ import java.util.*;
 public abstract class MarriagesData {
 
     // relates all married players to the id of their marriage
-    final protected Map<UUID, UUID> player = new HashMap<>();
-
+    final protected Map<UUID, UUID> allPlayersMarriages = new HashMap<>();
     // all existing marriages
-    final protected Set<UUID> marriages = new HashSet<>();
+    final protected Set<UUID> allMarriageIDs = new HashSet<>();
 
+    public abstract boolean areMarried(UUID pair);
     public abstract boolean areMarried(UUID a, UUID b);
 
     public boolean isMarriage(UUID pair) {
-        return marriages.contains(pair);
+        return allMarriageIDs.contains(pair);
     }
 
 }
