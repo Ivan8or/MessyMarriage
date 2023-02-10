@@ -36,11 +36,6 @@ public class CachedAmiabilityData implements AmiabilityData {
     }
 
     @Override
-    public Optional<Integer> getAmiabilityLevel(UUID a, UUID b) {
-        return getAmiabilityLevel(PlayerPair.pairID(a,b));
-    }
-
-    @Override
     public Optional<Integer> getAmiabilityExp(UUID pair) {
 
         Optional<Integer> primaryExp = primary.getAmiabilityExp(pair);
@@ -58,18 +53,8 @@ public class CachedAmiabilityData implements AmiabilityData {
     }
 
     @Override
-    public Optional<Integer> getAmiabilityExp(UUID a, UUID b) {
-        return getAmiabilityExp(PlayerPair.pairID(a,b));
-    }
-
-    @Override
     public void setExp(UUID pair, int amount) {
         primary.setExp(pair, amount);
         secondary.setExp(pair, amount);
-    }
-
-    @Override
-    public void setExp(UUID a, UUID b, int amount) {
-        setExp(PlayerPair.pairID(a,b), amount);
     }
 }

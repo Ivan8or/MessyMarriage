@@ -6,7 +6,6 @@ public interface MarriageData {
 
 
     boolean areMarried(UUID pair);
-    boolean areMarried(UUID a, UUID b);
 
     boolean isMarried(UUID player);
 

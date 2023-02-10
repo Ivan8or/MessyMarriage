@@ -23,11 +23,6 @@ public class MemoryAmiabilityData implements AmiabilityData {
     }
 
     @Override
-    public Optional<Integer> getAmiabilityLevel(UUID a, UUID b) {
-        return getAmiabilityLevel(PlayerPair.pairID(a,b));
-    }
-
-    @Override
     public Optional<Integer> getAmiabilityExp(UUID pair) {
         if(!amiabilityExp.containsKey(pair))
             return Optional.empty();
@@ -37,18 +32,8 @@ public class MemoryAmiabilityData implements AmiabilityData {
     }
 
     @Override
-    public Optional<Integer> getAmiabilityExp(UUID a, UUID b) {
-        return getAmiabilityExp(PlayerPair.pairID(a,b));
-    }
-
-    @Override
     public void setExp(UUID pair, int amount) {
         amiabilityExp.put(pair, amount);
-    }
-
-    @Override
-    public void setExp(UUID a, UUID b, int amount) {
-        setExp(PlayerPair.pairID(a,b), amount);
     }
 
 }
