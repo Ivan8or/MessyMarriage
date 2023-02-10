@@ -7,7 +7,7 @@ import online.umbcraft.messymariage.util.PlayerPair;
 import java.util.Optional;
 import java.util.UUID;
 
-public class ExpSanitizer {
+public class ExpDistributor {
 
     final private AmiabilityData storage;
     final private int DEFAULT_EXP_AMOUNT = ExpLevelConverter.toExp(20);
@@ -15,7 +15,7 @@ public class ExpSanitizer {
     final private int NON_MARRIAGE_LEVEL_LIMIT = 50;
     final private int NON_MARRIAGE_EXP_LIMIT = ExpLevelConverter.toExp(NON_MARRIAGE_LEVEL_LIMIT);
 
-    public ExpSanitizer(AmiabilityData storage) {
+    public ExpDistributor(AmiabilityData storage) {
         this.storage = storage;
     }
 

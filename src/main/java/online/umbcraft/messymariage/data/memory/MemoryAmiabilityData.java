@@ -51,13 +51,4 @@ public class MemoryAmiabilityData implements AmiabilityData {
         setExp(PlayerPair.pairID(a,b), amount);
     }
 
-    @Override
-    public boolean hasPair(UUID pair) {
-        return amiabilityExp.containsKey(pair);
-    }
-
-    @Override
-    public boolean hasPair(UUID a, UUID b) {
-        return hasPair(PlayerPair.pairID(a,b));
-    }
 }

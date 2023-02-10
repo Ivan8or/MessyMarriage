@@ -13,8 +13,4 @@ public interface AmiabilityData {
 
     void setExp(UUID pair, int amount);
     void setExp(UUID a, UUID b, int amount);
-
-    boolean hasPair(UUID pair);
-    boolean hasPair(UUID a, UUID b);
-
 }

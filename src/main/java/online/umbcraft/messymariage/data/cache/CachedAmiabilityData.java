@@ -19,8 +19,12 @@ public class CachedAmiabilityData implements AmiabilityData {
 
     @Override
     public Optional<Integer> getAmiabilityLevel(UUID pair) {
-        if(primary.hasPair(pair))
-            return primary.getAmiabilityLevel(pair);
+
+        Optional<Integer> primaryLevel = primary.getAmiabilityLevel(pair);
+
+        if(primaryLevel.isPresent())
+            return primaryLevel;
+
 
         Optional<Integer> exp = secondary.getAmiabilityExp(pair);
         if(exp.isEmpty())
@@ -38,15 +42,19 @@ public class CachedAmiabilityData implements AmiabilityData {
 
     @Override
     public Optional<Integer> getAmiabilityExp(UUID pair) {
-        if(primary.hasPair(pair))
-            return primary.getAmiabilityExp(pair);
 
-        Optional<Integer> exp = secondary.getAmiabilityExp(pair);
-        if(exp.isEmpty())
+        Optional<Integer> primaryExp = primary.getAmiabilityExp(pair);
+
+        if(primaryExp.isPresent())
+            return primaryExp;
+
+        Optional<Integer> secondaryExp = secondary.getAmiabilityExp(pair);
+
+        if(secondaryExp.isEmpty())
             return Optional.empty();
 
-        primary.setExp(pair, exp.get());
-        return exp;
+        primary.setExp(pair, secondaryExp.get());
+        return secondaryExp;
     }
 
     @Override
@@ -63,15 +71,5 @@ public class CachedAmiabilityData implements AmiabilityData {
     @Override
     public void setExp(UUID a, UUID b, int amount) {
         setExp(PlayerPair.pairID(a,b), amount);
-    }
-
-    @Override
-    public boolean hasPair(UUID pair) {
-        return primary.hasPair(pair) || secondary.hasPair(pair);
-    }
-
-    @Override
-    public boolean hasPair(UUID a, UUID b) {
-        return hasPair(PlayerPair.pairID(a,b));
     }
 }

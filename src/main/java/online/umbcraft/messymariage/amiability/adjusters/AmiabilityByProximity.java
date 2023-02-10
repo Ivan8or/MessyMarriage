@@ -1,8 +1,7 @@
 package online.umbcraft.messymariage.amiability.adjusters;
 
-import online.umbcraft.messymariage.amiability.ExpSanitizer;
-import online.umbcraft.messymariage.data.AmiabilityData;
-import online.umbcraft.messymariage.data.MarriagesData;
+import online.umbcraft.messymariage.amiability.ExpDistributor;
+import online.umbcraft.messymariage.data.MarriageData;
 import online.umbcraft.messymariage.util.PlayerPair;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -18,8 +17,8 @@ public class AmiabilityByProximity {
     final private static long TICKS_PER_SECOND = 20;
 
     final private Plugin plugin;
-    final private ExpSanitizer amiabilityExps = null;
-    final private MarriagesData marriages = null;
+    final private ExpDistributor amiabilityExps = null;
+    final private MarriageData marriages = null;
 
     final private static double DISTANCE_THRESHOLD = 48;
 
