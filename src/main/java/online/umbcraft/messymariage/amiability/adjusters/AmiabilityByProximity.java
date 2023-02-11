@@ -1,7 +1,6 @@
 package online.umbcraft.messymariage.amiability.adjusters;
 
 import online.umbcraft.messymariage.amiability.ExpDistributor;
-import online.umbcraft.messymariage.data.MarriageData;
 import online.umbcraft.messymariage.data.PairData;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -18,7 +17,7 @@ public class AmiabilityByProximity {
 
     final private Plugin plugin;
     final private ExpDistributor amiabilityExps = null;
-    final private MarriageData marriages = null;
+    final private PairData pairs = null;
 
     final private static double DISTANCE_THRESHOLD = 48;
 
@@ -56,7 +55,7 @@ public class AmiabilityByProximity {
             return;
 
         double distance = p1.getLocation().distance(p2.getLocation());
-        boolean married = marriages.isMarriage(pairID);
+        boolean married = pairs.isMarriage(pairID);
 
         int positiveAdjust = married ? 7 : 5;
         int negativeAdjust = married ? -3 : -1;

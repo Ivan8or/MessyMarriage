@@ -7,7 +7,14 @@ import java.util.UUID;
 public interface PairData {
 
     Optional<UUID> getPartner(UUID pair, UUID player);
+
     Optional<Set<UUID>> getMembers(UUID pair);
+
+    boolean isMarriage(UUID pair);
+
+    boolean isMarried(UUID player);
+
+    Optional<UUID> getMarriageID(UUID player);
 
 
     static UUID pairID(UUID a, UUID b) {

@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public class MemoryAmiabilityData implements AmiabilityData {
 
-    final protected Map<UUID, Integer> amiabilityExp = new HashMap<>();
+    final private Map<UUID, Integer> amiabilityExp = new HashMap<>();
 
     @Override
     public Optional<Integer> getAmiabilityLevel(UUID pair) {

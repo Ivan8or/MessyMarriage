@@ -1,13 +1,13 @@
 package online.umbcraft.messymariage;
 
 import online.umbcraft.messymariage.data.AmiabilityData;
-import online.umbcraft.messymariage.data.MarriageData;
+import online.umbcraft.messymariage.data.PairData;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class MessyMarriage extends JavaPlugin {
 
     private AmiabilityData amiabilityData;
-    private MarriageData marriageData;
+    private PairData pairData;
 
     @Override
     public void onEnable() {
