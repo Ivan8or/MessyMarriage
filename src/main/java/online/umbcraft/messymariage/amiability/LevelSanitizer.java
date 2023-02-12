@@ -7,10 +7,7 @@ import online.umbcraft.messymariage.util.MessageUI;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class LevelSanitizer {
@@ -24,9 +21,10 @@ public class LevelSanitizer {
     final static public int MARRIAGE_LEVEL_LIMIT = 100;
     final static public int MARRIAGE_EXP_LIMIT = ExpLevelConverter.toExp(MARRIAGE_LEVEL_LIMIT+1)-1;
 
-
     final static public int NON_MARRIAGE_LEVEL_LIMIT = 50;
     final static public int NON_MARRIAGE_EXP_LIMIT = ExpLevelConverter.toExp(NON_MARRIAGE_LEVEL_LIMIT+1)-1;
+
+    final private Map<UUID, Integer> amiabilityBuffer = new HashMap<>();
 
     public LevelSanitizer(AmiabilityData amiabilities, PairData pairs) {
         this.amiabilities = amiabilities;
@@ -43,12 +41,28 @@ public class LevelSanitizer {
         return potentialLevel.get();
     }
 
+    public void flush() {
+        amiabilities.setManyExp(amiabilityBuffer);
+        amiabilityBuffer.clear();
+    }
+
+    public int adjustAmiability(final UUID pair, final int imcrement) {
+        return adjustAmiability(pair, imcrement, true);
+    }
+
     // returns new exp amount for the pairing
-    public int adjustAmiability(final UUID pair, final int increment) {
+    public int adjustAmiability(final UUID pair, final int increment, boolean flush) {
 
-        Optional<Integer> result = amiabilities.getAmiabilityExp(pair);
+        int currentEXP;
 
-        int currentEXP = result.orElse(DEFAULT_EXP_AMOUNT);
+        if(amiabilityBuffer.containsKey(pair)) {
+            currentEXP = amiabilityBuffer.get(pair);
+        }
+        else {
+            Optional<Integer> result = amiabilities.getAmiabilityExp(pair);
+            currentEXP = result.orElse(DEFAULT_EXP_AMOUNT);
+        }
+
         int newEXP = currentEXP + increment;
         int currentLevel = ExpLevelConverter.toLevel(currentEXP);
         int newLevel = ExpLevelConverter.toLevel(newEXP);
@@ -60,7 +74,11 @@ public class LevelSanitizer {
             newEXP = (married ? MARRIAGE_EXP_LIMIT : NON_MARRIAGE_EXP_LIMIT);
             newLevel = (married ? MARRIAGE_LEVEL_LIMIT : NON_MARRIAGE_LEVEL_LIMIT);
         }
-        amiabilities.setExp(pair, newEXP);
+
+        amiabilityBuffer.put(pair, newEXP);
+
+        if(flush)
+            flush();
 
         if(newLevel == currentLevel)
             return newEXP;
@@ -84,8 +102,6 @@ public class LevelSanitizer {
 
         OfflinePlayer p1 = players.get(0);
         OfflinePlayer p2 = players.get(1);
-
-        System.out.println(pair+levelChangeSuffix);
 
         if(p1.isOnline())
             MessageUI.sendActionbarMessage(p1.getPlayer(), levelChangePrefix + p2.getName() + levelChangeSuffix);

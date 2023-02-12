@@ -45,6 +45,7 @@ public class AmiabilityByProximity {
                     processPair(p1, p2, processedPairs);
                 }
             }
+            levelSanitizer.flush();
         };
 
         scheduler.runTaskTimer(plugin, task, delay, period);
@@ -63,9 +64,9 @@ public class AmiabilityByProximity {
         int negativeAdjust = married ? -3 : -1;
 
         if(distance < DISTANCE_THRESHOLD)
-            levelSanitizer.adjustAmiability(pairID, positiveAdjust);
+            levelSanitizer.adjustAmiability(pairID, positiveAdjust, false);
         else
-            levelSanitizer.adjustAmiability(pairID, negativeAdjust);
+            levelSanitizer.adjustAmiability(pairID, negativeAdjust, false);
 
         processedPairs.add(pairID);
     }
