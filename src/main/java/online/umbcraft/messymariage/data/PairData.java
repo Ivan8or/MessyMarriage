@@ -1,5 +1,6 @@
 package online.umbcraft.messymariage.data;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -10,14 +11,25 @@ public interface PairData {
 
     Optional<Set<UUID>> getMembers(UUID pair);
 
+    boolean pairExists(UUID pair);
+
     boolean isMarriage(UUID pair);
 
     boolean isMarried(UUID player);
 
     Optional<UUID> getMarriageID(UUID player);
 
+    Set<UUID> allMarriages();
 
-    static UUID pairID(UUID a, UUID b) {
+    Map<UUID, Set<UUID>> allPairings();
+
+    UUID pairID(UUID a, UUID b);
+
+    void marry(UUID pair);
+
+    void unmarry(UUID pair);
+
+    static UUID generatePairID(UUID a, UUID b) {
 
         // upper halves of each uuid
         long ah = a.getMostSignificantBits();

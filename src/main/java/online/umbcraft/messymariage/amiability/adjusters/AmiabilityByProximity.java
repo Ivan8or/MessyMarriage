@@ -1,6 +1,6 @@
 package online.umbcraft.messymariage.amiability.adjusters;
 
-import online.umbcraft.messymariage.amiability.ExpDistributor;
+import online.umbcraft.messymariage.amiability.LevelSanitizer;
 import online.umbcraft.messymariage.data.PairData;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
@@ -16,13 +16,15 @@ public class AmiabilityByProximity {
     final private static long TICKS_PER_SECOND = 20;
 
     final private Plugin plugin;
-    final private ExpDistributor amiabilityExps = null;
-    final private PairData pairs = null;
+    final private LevelSanitizer levelSanitizer;
+    final private PairData pairs;
 
     final private static double DISTANCE_THRESHOLD = 48;
 
-    public AmiabilityByProximity(Plugin plugin) {
+    public AmiabilityByProximity(Plugin plugin, LevelSanitizer levelSanitizer, PairData pairs) {
         this.plugin = plugin;
+        this.pairs = pairs;
+        this.levelSanitizer = levelSanitizer;
     }
 
     public void start() {
@@ -49,7 +51,7 @@ public class AmiabilityByProximity {
     }
 
     public void processPair(Player p1, Player p2, Set<UUID> processedPairs) {
-        UUID pairID = PairData.pairID(p1.getUniqueId(), p2.getUniqueId());
+        UUID pairID = pairs.pairID(p1.getUniqueId(), p2.getUniqueId());
 
         if(processedPairs.contains(pairID))
             return;
@@ -61,9 +63,9 @@ public class AmiabilityByProximity {
         int negativeAdjust = married ? -3 : -1;
 
         if(distance < DISTANCE_THRESHOLD)
-            amiabilityExps.adjustAmiability(pairID, positiveAdjust);
+            levelSanitizer.adjustAmiability(pairID, positiveAdjust);
         else
-            amiabilityExps.adjustAmiability(pairID, negativeAdjust);
+            levelSanitizer.adjustAmiability(pairID, negativeAdjust);
 
         processedPairs.add(pairID);
     }

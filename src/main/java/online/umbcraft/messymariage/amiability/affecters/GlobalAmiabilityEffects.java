@@ -1,6 +1,6 @@
 package online.umbcraft.messymariage.amiability.affecters;
 
-import online.umbcraft.messymariage.amiability.ExpDistributor;
+import online.umbcraft.messymariage.amiability.LevelSanitizer;
 import online.umbcraft.messymariage.data.AmiabilityData;
 import online.umbcraft.messymariage.data.PairData;
 import org.bukkit.entity.Player;
@@ -8,7 +8,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
 
@@ -18,11 +17,13 @@ import java.util.UUID;
 public class GlobalAmiabilityEffects implements Listener {
 
     final private Plugin plugin;
-    final private AmiabilityData amiabilities;
+    final private LevelSanitizer exp;
+    final private PairData pairs;
 
-    public GlobalAmiabilityEffects(Plugin plugin, AmiabilityData amiabilities) {
+    public GlobalAmiabilityEffects(Plugin plugin, LevelSanitizer exp, PairData pairs) {
         this.plugin = plugin;
-        this.amiabilities = amiabilities;
+        this.pairs = pairs;
+        this.exp = exp;
     }
 
     public void start() {
@@ -37,10 +38,8 @@ public class GlobalAmiabilityEffects implements Listener {
         Player damager = (Player) e.getDamager();
         Player victim = (Player) e.getEntity();
 
-        UUID pairID = PairData.pairID(damager.getUniqueId(), victim.getUniqueId());
-        Optional<Integer> levelOptional = amiabilities.getAmiabilityLevel(pairID);
-
-        int level = levelOptional.orElse(ExpDistributor.DEFAULT_LEVEL_AMOUNT);
+        UUID pairID = pairs.pairID(damager.getUniqueId(), victim.getUniqueId());
+        int level = exp.getLevel(pairID);
 
         if(level <= 15) {
             Vector victimLoc = victim.getLocation().toVector();

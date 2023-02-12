@@ -6,7 +6,6 @@ import online.umbcraft.messymariage.util.ExpLevelConverter;
 import online.umbcraft.messymariage.util.MessageUI;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,23 +13,34 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-public class ExpDistributor {
+public class LevelSanitizer {
 
     final private AmiabilityData amiabilities;
     final private PairData pairs;
 
-    final private int DEFAULT_EXP_AMOUNT = ExpLevelConverter.toExp(20);
+    final static public int DEFAULT_LEVEL_AMOUNT = 20;
+    final static public int DEFAULT_EXP_AMOUNT = ExpLevelConverter.toExp(DEFAULT_LEVEL_AMOUNT);
 
-    final private int MARRIAGE_LEVEL_LIMIT = 100;
-    final private int MARRIAGE_EXP_LIMIT = ExpLevelConverter.toExp(MARRIAGE_LEVEL_LIMIT);
+    final static public int MARRIAGE_LEVEL_LIMIT = 100;
+    final static public int MARRIAGE_EXP_LIMIT = ExpLevelConverter.toExp(MARRIAGE_LEVEL_LIMIT);
 
 
-    final private int NON_MARRIAGE_LEVEL_LIMIT = 50;
-    final private int NON_MARRIAGE_EXP_LIMIT = ExpLevelConverter.toExp(NON_MARRIAGE_LEVEL_LIMIT);
+    final static public int NON_MARRIAGE_LEVEL_LIMIT = 50;
+    final static public int NON_MARRIAGE_EXP_LIMIT = ExpLevelConverter.toExp(NON_MARRIAGE_LEVEL_LIMIT);
 
-    public ExpDistributor(AmiabilityData amiabilities, PairData pairs) {
+    public LevelSanitizer(AmiabilityData amiabilities, PairData pairs) {
         this.amiabilities = amiabilities;
         this.pairs = pairs;
+    }
+
+    public int getLevel(final UUID pair) {
+        Optional<Integer> potentialLevel = amiabilities.getAmiabilityLevel(pair);
+
+        if(potentialLevel.isEmpty()) {
+            amiabilities.setExp(pair, DEFAULT_EXP_AMOUNT);
+            return DEFAULT_LEVEL_AMOUNT;
+        }
+        return potentialLevel.get();
     }
 
     // returns new exp amount for the pairing

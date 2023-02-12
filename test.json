@@ -1,0 +1,25 @@
+{
+  "amiabilityExp" : [
+
+    {
+      "pairID" : "492947bf-fc4e-4c31-bbf9-2ea0b996e6e6",
+      "exp" : "1045"
+    },
+    {
+      "pairID" : "67bfc088-7c07-47f4-89c6-158985751d33",
+      "exp" : "111111"
+    },
+    {
+      "pairID" : "5ce1f207-d194-429d-8288-945fd81834b9",
+      "exp" : "222"
+    },
+    {
+      "pairID" : "f8daa0af-f332-4d49-8ec9-7df348bd84d7",
+      "exp" : "3676"
+    },
+    {
+      "pairID" : "b7fc4304-b3b4-46da-91f5-25bce3b6c5cd",
+      "exp" : "999967"
+    }
+  ]
+}
