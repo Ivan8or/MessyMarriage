@@ -1,13 +1,19 @@
 package online.umbcraft.messymariage.data.json;
 
+import online.umbcraft.messymariage.MessyMarriage;
 import online.umbcraft.messymariage.data.AmiabilityData;
 import online.umbcraft.messymariage.util.ExpLevelConverter;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.Reader;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class JsonAmiabilityData implements AmiabilityData {
@@ -17,10 +23,26 @@ public class JsonAmiabilityData implements AmiabilityData {
 
     public JsonAmiabilityData(String filepath) {
         this.filepath = filepath;
-        readAmiabilityFile(filepath);
+
+        File jsonFile = new File(filepath);
+        if(!jsonFile.exists()) {
+            resetFile();
+        }
+
+        readAmiabilityFile();
     }
 
-    private void readAmiabilityFile(String filepath) {
+    private void resetFile() {
+        try {
+            URL resource = MessyMarriage.class.getResource("data/default-amiabilities.json");
+            File defaultFile = Paths.get(resource.toURI()).toFile();
+            Files.copy(defaultFile.toPath(), new File(filepath).toPath());
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void readAmiabilityFile() {
         JSONParser parser = new JSONParser();
 
         try (Reader reader = new FileReader(filepath)) {
@@ -31,6 +53,18 @@ public class JsonAmiabilityData implements AmiabilityData {
             e.printStackTrace();
         }
     }
+
+    private void writeAmiabilityFile() {
+        try (FileWriter file = new FileWriter(filepath)) {
+
+            file.write(root.toJSONString());
+            file.flush();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     public Optional<Integer> getAmiabilityLevel(UUID pair) {
@@ -48,14 +82,13 @@ public class JsonAmiabilityData implements AmiabilityData {
     public Optional<Integer> getAmiabilityExp(UUID pair) {
 
         JSONArray expArray = (JSONArray) root.get("amiabilityExp");
-        Iterator iter = expArray.iterator();
 
-        while(iter.hasNext()) {
-            JSONObject entry = (JSONObject) iter.next();
+        for (Object o : expArray) {
+            JSONObject entry = (JSONObject) o;
 
             String uuidString = (String) entry.get("pairID");
             UUID pairID = UUID.fromString(uuidString);
-            if(pairID.equals(pair)) {
+            if (pairID.equals(pair)) {
 
                 // stupid but this doesn't behave right unless it is cast to long first
                 Integer pairExp = Integer.parseInt((String) entry.get("exp"));
@@ -69,23 +102,24 @@ public class JsonAmiabilityData implements AmiabilityData {
     @Override
     public void setExp(UUID pair, int amount) {
         JSONArray expArray = (JSONArray) root.get("amiabilityExp");
-        Iterator iter = expArray.iterator();
 
-        while(iter.hasNext()) {
-            JSONObject entry = (JSONObject) iter.next();
+        for (Object o : expArray) {
+            JSONObject entry = (JSONObject) o;
 
             String uuidString = (String) entry.get("pairID");
             UUID nextPair = UUID.fromString(uuidString);
 
-            if(nextPair.equals(pair)) {
-                entry.put("exp", amount+"");
+            if (nextPair.equals(pair)) {
+                entry.put("exp", amount + "");
                 return;
             }
         }
         JSONObject newEntry = new JSONObject();
         newEntry.put("pairID", pair.toString());
         newEntry.put("exp", amount+"");
-        expArray.add(0, newEntry);
+        expArray.add( newEntry);
+
+        writeAmiabilityFile();
     }
 
     @Override
@@ -93,10 +127,9 @@ public class JsonAmiabilityData implements AmiabilityData {
         Map<UUID, Integer> toReturn = new HashMap<>();
 
         JSONArray expArray = (JSONArray) root.get("amiabilityExp");
-        Iterator iter = expArray.iterator();
 
-        while(iter.hasNext()) {
-            JSONObject entry = (JSONObject) iter.next();
+        for (Object o : expArray) {
+            JSONObject entry = (JSONObject) o;
 
             String uuidString = (String) entry.get("pairID");
             UUID pairID = UUID.fromString(uuidString);

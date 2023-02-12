@@ -29,7 +29,7 @@ public class CachedPairData implements PairData {
 
     @Override
     public boolean pairExists(UUID pair) {
-        return false;
+        return primary.pairExists(pair);
     }
 
     @Override
