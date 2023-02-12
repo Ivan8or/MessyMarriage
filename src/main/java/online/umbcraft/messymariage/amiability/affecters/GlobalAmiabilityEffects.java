@@ -1,7 +1,7 @@
 package online.umbcraft.messymariage.amiability.affecters;
 
 import online.umbcraft.messymariage.amiability.LevelSanitizer;
-import online.umbcraft.messymariage.data.AmiabilityData;
+
 import online.umbcraft.messymariage.data.PairData;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,7 +11,6 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
 
-import java.util.Optional;
 import java.util.UUID;
 
 public class GlobalAmiabilityEffects implements Listener {

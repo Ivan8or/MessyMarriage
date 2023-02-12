@@ -1,6 +1,5 @@
 package online.umbcraft.messymariage.data.json;
 
-import com.google.gson.JsonNull;
 import online.umbcraft.messymariage.data.AmiabilityData;
 import online.umbcraft.messymariage.util.ExpLevelConverter;
 import org.json.simple.JSONArray;
