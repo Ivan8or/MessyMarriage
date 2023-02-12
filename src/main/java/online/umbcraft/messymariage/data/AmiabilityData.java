@@ -1,5 +1,6 @@
 package online.umbcraft.messymariage.data;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -11,5 +12,6 @@ public interface AmiabilityData {
 
     void setExp(UUID pair, int amount);
 
+    Map<UUID, Integer> allExps();
 
 }

@@ -3,6 +3,7 @@ package online.umbcraft.messymariage.data.cache;
 import online.umbcraft.messymariage.data.AmiabilityData;
 import online.umbcraft.messymariage.util.ExpLevelConverter;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -14,46 +15,32 @@ public class CachedAmiabilityData implements AmiabilityData {
     public CachedAmiabilityData(AmiabilityData primary, AmiabilityData secondary) {
         this.primary = primary;
         this.secondary = secondary;
+
+        Map<UUID, Integer> allExps = secondary.allExps();
+
+        for(Map.Entry<UUID,Integer> e : allExps.entrySet())
+            primary.setExp(e.getKey(), e.getValue());
+
     }
 
     @Override
     public Optional<Integer> getAmiabilityLevel(UUID pair) {
-
-        Optional<Integer> primaryLevel = primary.getAmiabilityLevel(pair);
-
-        if(primaryLevel.isPresent())
-            return primaryLevel;
-
-
-        Optional<Integer> exp = secondary.getAmiabilityExp(pair);
-        if(exp.isEmpty())
-            return Optional.empty();
-
-        primary.setExp(pair, exp.get());
-        int level = ExpLevelConverter.toLevel(exp.get());
-        return Optional.of(level);
+        return primary.getAmiabilityLevel(pair);
     }
 
     @Override
     public Optional<Integer> getAmiabilityExp(UUID pair) {
-
-        Optional<Integer> primaryExp = primary.getAmiabilityExp(pair);
-
-        if(primaryExp.isPresent())
-            return primaryExp;
-
-        Optional<Integer> secondaryExp = secondary.getAmiabilityExp(pair);
-
-        if(secondaryExp.isEmpty())
-            return Optional.empty();
-
-        primary.setExp(pair, secondaryExp.get());
-        return secondaryExp;
+        return primary.getAmiabilityExp(pair);
     }
 
     @Override
     public void setExp(UUID pair, int amount) {
         primary.setExp(pair, amount);
         secondary.setExp(pair, amount);
+    }
+
+    @Override
+    public Map<UUID, Integer> allExps() {
+        return primary.allExps();
     }
 }
