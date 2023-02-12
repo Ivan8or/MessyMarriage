@@ -12,6 +12,8 @@ public interface AmiabilityData {
 
     void setExp(UUID pair, int amount);
 
+    void setManyExp(Map<UUID, Integer> toUpdate);
+
     Map<UUID, Integer> allExps();
 
 }

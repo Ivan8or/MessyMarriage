@@ -1,6 +1,5 @@
 package online.umbcraft.messymariage.data.json;
 
-import online.umbcraft.messymariage.MessyMarriage;
 import online.umbcraft.messymariage.data.AmiabilityData;
 import online.umbcraft.messymariage.util.ExpLevelConverter;
 import org.json.simple.JSONArray;
@@ -97,7 +96,14 @@ public class JsonAmiabilityData implements AmiabilityData {
 
     @Override
     public void setExp(UUID pair, int amount) {
+       setManyExp(Map.of(pair, amount));
+    }
+
+    @Override
+    public void setManyExp(Map<UUID, Integer> toUpdate) {
         JSONArray expArray = (JSONArray) root.get("amiabilityExp");
+
+        Set<UUID> handled = new HashSet<>(toUpdate.size());
 
         for (Object o : expArray) {
             JSONObject entry = (JSONObject) o;
@@ -105,16 +111,21 @@ public class JsonAmiabilityData implements AmiabilityData {
             String uuidString = (String) entry.get("pairID");
             UUID nextPair = UUID.fromString(uuidString);
 
-            if (nextPair.equals(pair)) {
-                entry.put("exp", amount + "");
-                writeAmiabilityFile();
-                return;
+            if (toUpdate.containsKey(nextPair)) {
+                entry.put("exp", toUpdate.get(nextPair) + "");
+                handled.add(nextPair);
             }
         }
-        JSONObject newEntry = new JSONObject();
-        newEntry.put("pairID", pair.toString());
-        newEntry.put("exp", amount+"");
-        expArray.add( newEntry);
+
+        for(Map.Entry<UUID, Integer> updates : toUpdate.entrySet()) {
+            if(handled.contains(updates.getKey()))
+                continue;
+
+            JSONObject newEntry = new JSONObject();
+            newEntry.put("pairID", updates.getKey().toString());
+            newEntry.put("exp", updates.getValue() + "");
+            expArray.add(newEntry);
+        }
         writeAmiabilityFile();
     }
 

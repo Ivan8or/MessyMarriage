@@ -99,13 +99,13 @@ public class JsonPairData implements PairData {
     // TODO unimplemented because lazy and dont need it
     @Override
     public boolean isMarried(UUID player) {
-        return false;
+        throw new UnsupportedOperationException("not implemented");
     }
 
     // TODO unimplemented because lazy and dont need it
     @Override
     public Optional<UUID> getMarriageID(UUID player) {
-        return Optional.empty();
+        throw new UnsupportedOperationException("not implemented");
     }
 
     @Override

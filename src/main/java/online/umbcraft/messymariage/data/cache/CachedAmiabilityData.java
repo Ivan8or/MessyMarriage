@@ -39,6 +39,11 @@ public class CachedAmiabilityData implements AmiabilityData {
     }
 
     @Override
+    public void setManyExp(Map<UUID, Integer> toUpdate) {
+        primary.setManyExp(toUpdate);
+    }
+
+    @Override
     public Map<UUID, Integer> allExps() {
         return primary.allExps();
     }

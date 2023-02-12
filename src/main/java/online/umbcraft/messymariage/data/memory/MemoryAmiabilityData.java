@@ -36,6 +36,13 @@ public class MemoryAmiabilityData implements AmiabilityData {
     }
 
     @Override
+    public void setManyExp(Map<UUID, Integer> toUpdate) {
+        for(Map.Entry<UUID, Integer> entry : toUpdate.entrySet())
+            amiabilityExp.put(entry.getKey(), entry.getValue());
+
+    }
+
+    @Override
     public Map<UUID, Integer> allExps() {
         return Map.copyOf(amiabilityExp);
     }

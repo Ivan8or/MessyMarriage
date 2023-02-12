@@ -76,6 +76,7 @@ public class LevelSanitizer {
 
         String levelChangePrefix = "&eYour amiability with ";
         String levelChangeSuffix;
+
         if(newLevel > currentLevel)
             levelChangeSuffix = " has &aincreased &efrom &6"+currentLevel+"&e to &6"+newLevel+"&e.";
         else
