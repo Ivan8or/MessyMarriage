@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 
 import java.util.*;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 public class LevelSanitizer {
@@ -46,8 +47,8 @@ public class LevelSanitizer {
         amiabilityBuffer.clear();
     }
 
-    public int adjustAmiability(final UUID pair, final int imcrement) {
-        return adjustAmiability(pair, imcrement, true);
+    public int adjustAmiability(final UUID pair, final int increment) {
+        return adjustAmiability(pair, increment, true);
     }
 
     // returns new exp amount for the pairing
@@ -75,11 +76,15 @@ public class LevelSanitizer {
             newLevel = (married ? MARRIAGE_LEVEL_LIMIT : NON_MARRIAGE_LEVEL_LIMIT);
         }
 
+        // update exp if it needs updating
         amiabilityBuffer.put(pair, newEXP);
+        if(newEXP == currentEXP)
+            return newEXP;
 
         if(flush)
             flush();
 
+        // update players of levels if they need updating
         if(newLevel == currentLevel)
             return newEXP;
 

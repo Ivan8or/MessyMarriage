@@ -2,6 +2,7 @@ package online.umbcraft.messymariage.data.json;
 
 import online.umbcraft.messymariage.data.AmiabilityData;
 import online.umbcraft.messymariage.util.ExpLevelConverter;
+import org.bukkit.Bukkit;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -11,6 +12,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.logging.Level;
 
 public class JsonAmiabilityData implements AmiabilityData {
 
@@ -101,6 +103,10 @@ public class JsonAmiabilityData implements AmiabilityData {
 
     @Override
     public void setManyExp(Map<UUID, Integer> toUpdate) {
+
+        if(toUpdate.size() == 0)
+            return;
+
         JSONArray expArray = (JSONArray) root.get("amiabilityExp");
 
         Set<UUID> handled = new HashSet<>(toUpdate.size());
@@ -126,6 +132,7 @@ public class JsonAmiabilityData implements AmiabilityData {
             newEntry.put("exp", updates.getValue() + "");
             expArray.add(newEntry);
         }
+
         writeAmiabilityFile();
     }
 

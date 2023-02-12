@@ -40,14 +40,14 @@ public class GlobalAmiabilityEffects implements Listener {
         UUID pairID = pairs.pairID(damager.getUniqueId(), victim.getUniqueId());
         int level = exp.getLevel(pairID);
 
-        if(level <= 15) {
+        if(level <= 5) {
             Vector victimLoc = victim.getLocation().toVector();
             Vector damagerLoc = damager.getLocation().toVector();
             Vector velocityOffset = victimLoc.subtract(damagerLoc).normalize().multiply(0.3);
 
             victim.setVelocity(victim.getVelocity().add(velocityOffset));
         }
-        else if(level >= 36) {
+        else if(level >= 30) {
             e.setDamage(e.getDamage() * 0.85);
         }
     }
