@@ -23,23 +23,25 @@ dependencies {
 }
 
 group = 'online.umbcraft'
-version = '1.0.0'
-
-java.sourceCompatibility = JavaVersion.VERSION_11
+version = '0.1.0-ALPHA'
 
 
 processResources {
-    from(sourceSets.main.resources.srcDirs) {
-        filter ReplaceTokens, tokens: [version: version]
-    }
+    include 'plugin.yml'
+    include 'config.yml'
+    include 'data/*'
+
+    inputs.property 'version', version
+    filter ReplaceTokens, tokens: [VERSION: version]
 }
 
-tasks.withType(Copy).all { duplicatesStrategy 'warn' }
-
+shadowJar {
+    archiveClassifier = ""
+}
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
-
+java.sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11

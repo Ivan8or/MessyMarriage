@@ -1,4 +1,4 @@
 name: MessyMarriage
-version: '${version}'
+version: @VERSION@
 main: online.umbcraft.messymariage.MessyMarriage
 api-version: 1.19

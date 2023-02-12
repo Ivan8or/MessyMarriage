@@ -107,6 +107,7 @@ public class JsonAmiabilityData implements AmiabilityData {
 
             if (nextPair.equals(pair)) {
                 entry.put("exp", amount + "");
+                writeAmiabilityFile();
                 return;
             }
         }
@@ -114,7 +115,6 @@ public class JsonAmiabilityData implements AmiabilityData {
         newEntry.put("pairID", pair.toString());
         newEntry.put("exp", amount+"");
         expArray.add( newEntry);
-
         writeAmiabilityFile();
     }
 

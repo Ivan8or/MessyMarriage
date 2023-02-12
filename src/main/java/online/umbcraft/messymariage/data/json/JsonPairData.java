@@ -142,7 +142,7 @@ public class JsonPairData implements PairData {
         if(!allPairings().containsKey(pairID)) {
 
             JSONArray membersArray = new JSONArray();
-            membersArray.addAll(Set.of(a, b));
+            membersArray.addAll(Set.of(a.toString(), b.toString()));
 
             JSONObject newPair = new JSONObject();
             newPair.put("pairID", pairID.toString());

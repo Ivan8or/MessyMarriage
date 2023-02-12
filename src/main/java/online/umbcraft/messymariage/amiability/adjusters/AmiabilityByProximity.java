@@ -31,7 +31,7 @@ public class AmiabilityByProximity {
 
         BukkitScheduler scheduler = plugin.getServer().getScheduler();
         long delay = 0L;
-        long period = TICKS_PER_SECOND * 60;
+        long period = TICKS_PER_SECOND * 5;
 
         Runnable task = () -> {
             Collection<? extends Player> players = plugin.getServer().getOnlinePlayers();

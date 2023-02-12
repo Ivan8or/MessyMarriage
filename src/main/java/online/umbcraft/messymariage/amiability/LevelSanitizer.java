@@ -18,15 +18,15 @@ public class LevelSanitizer {
     final private AmiabilityData amiabilities;
     final private PairData pairs;
 
-    final static public int DEFAULT_LEVEL_AMOUNT = 20;
+    final static public int DEFAULT_LEVEL_AMOUNT = 0;
     final static public int DEFAULT_EXP_AMOUNT = ExpLevelConverter.toExp(DEFAULT_LEVEL_AMOUNT);
 
     final static public int MARRIAGE_LEVEL_LIMIT = 100;
-    final static public int MARRIAGE_EXP_LIMIT = ExpLevelConverter.toExp(MARRIAGE_LEVEL_LIMIT);
+    final static public int MARRIAGE_EXP_LIMIT = ExpLevelConverter.toExp(MARRIAGE_LEVEL_LIMIT+1)-1;
 
 
     final static public int NON_MARRIAGE_LEVEL_LIMIT = 50;
-    final static public int NON_MARRIAGE_EXP_LIMIT = ExpLevelConverter.toExp(NON_MARRIAGE_LEVEL_LIMIT);
+    final static public int NON_MARRIAGE_EXP_LIMIT = ExpLevelConverter.toExp(NON_MARRIAGE_LEVEL_LIMIT+1)-1;
 
     public LevelSanitizer(AmiabilityData amiabilities, PairData pairs) {
         this.amiabilities = amiabilities;
@@ -58,6 +58,7 @@ public class LevelSanitizer {
         // if hit level cap
         if(newLevel > (married ? MARRIAGE_LEVEL_LIMIT : NON_MARRIAGE_LEVEL_LIMIT) ) {
             newEXP = (married ? MARRIAGE_EXP_LIMIT : NON_MARRIAGE_EXP_LIMIT);
+            newLevel = (married ? MARRIAGE_LEVEL_LIMIT : NON_MARRIAGE_LEVEL_LIMIT);
         }
         amiabilities.setExp(pair, newEXP);
 
@@ -73,16 +74,22 @@ public class LevelSanitizer {
                 .map(Bukkit::getOfflinePlayer)
                 .collect(Collectors.toList());
 
-        String prefix = "Your amiability with ";
-        String suffix = " has "+(newLevel > currentLevel ? "increased" : "decreased")+" from "+currentLevel+" to "+newLevel+".";
+        String levelChangePrefix = "&eYour amiability with ";
+        String levelChangeSuffix;
+        if(newLevel > currentLevel)
+            levelChangeSuffix = " has &aincreased &efrom &6"+currentLevel+"&e to &6"+newLevel+"&e.";
+        else
+            levelChangeSuffix =  " has &cdecreased &efrom &6"+currentLevel+"&e to &6"+newLevel+"&e.";
 
         OfflinePlayer p1 = players.get(0);
         OfflinePlayer p2 = players.get(1);
 
+        System.out.println(pair+levelChangeSuffix);
+
         if(p1.isOnline())
-            MessageUI.sendActionbarMessage(p1.getPlayer(), prefix+p2.getName()+suffix);
+            MessageUI.sendActionbarMessage(p1.getPlayer(), levelChangePrefix + p2.getName() + levelChangeSuffix);
         if(p2.isOnline())
-            MessageUI.sendActionbarMessage(p2.getPlayer(), prefix+p1.getName()+suffix);
+            MessageUI.sendActionbarMessage(p2.getPlayer(), levelChangePrefix + p1.getName() + levelChangeSuffix);
 
         return newEXP;
     }
