@@ -2,6 +2,8 @@ package online.umbcraft.messymariage.amiability.adjusters;
 
 import online.umbcraft.messymariage.amiability.LevelSanitizer;
 import online.umbcraft.messymariage.data.PairData;
+import online.umbcraft.messymariage.util.SafePlayerDistance;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitScheduler;
@@ -10,6 +12,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import java.util.logging.Level;
 
 public class AmiabilityByProximity {
 
@@ -37,14 +40,11 @@ public class AmiabilityByProximity {
             Collection<? extends Player> players = plugin.getServer().getOnlinePlayers();
             Set<UUID> processedPairs = new HashSet<>();
 
-            for(Player p1 : players) {
-                for(Player p2: players) {
-                    if(p1 == p2)
-                        continue;
+            for(Player p1 : players)
+                for(Player p2: players)
+                    if(p1 != p2)
+                        processPair(p1, p2, processedPairs);
 
-                    processPair(p1, p2, processedPairs);
-                }
-            }
             levelSanitizer.flush();
         };
 
@@ -57,11 +57,13 @@ public class AmiabilityByProximity {
         if(processedPairs.contains(pairID))
             return;
 
-        double distance = p1.getLocation().distance(p2.getLocation());
+
+        double distance = SafePlayerDistance.distance(p1, p2);
+
         boolean married = pairs.isMarriage(pairID);
 
         int positiveAdjust = married ? 7 : 5;
-        int negativeAdjust = married ? -3 : -1;
+        int negativeAdjust = married ? -3 : -2;
 
         if(distance < DISTANCE_THRESHOLD)
             levelSanitizer.adjustAmiability(pairID, positiveAdjust, false);
