@@ -30,9 +30,8 @@ public class JsonPairData implements PairData {
 
     private void resetFile() {
         try {
-            URL resource = MessyMarriage.class.getResource("data/default-pairs.json");
-            File defaultFile = Paths.get(resource.toURI()).toFile();
-            Files.copy(defaultFile.toPath(), new File(filepath).toPath());
+            InputStream defaultFileStream = getClass().getResourceAsStream("/data/default-pairs.json");
+            Files.copy(defaultFileStream, new File(filepath).toPath());
         } catch(Exception e) {
             e.printStackTrace();
         }

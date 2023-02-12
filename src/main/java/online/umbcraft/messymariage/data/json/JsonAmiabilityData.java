@@ -7,10 +7,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.Reader;
+import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -34,9 +31,8 @@ public class JsonAmiabilityData implements AmiabilityData {
 
     private void resetFile() {
         try {
-            URL resource = MessyMarriage.class.getResource("data/default-amiabilities.json");
-            File defaultFile = Paths.get(resource.toURI()).toFile();
-            Files.copy(defaultFile.toPath(), new File(filepath).toPath());
+            InputStream defaultFileStream = getClass().getResourceAsStream("/data/default-amiability.json");
+            Files.copy(defaultFileStream, new File(filepath).toPath());
         } catch(Exception e) {
             e.printStackTrace();
         }
