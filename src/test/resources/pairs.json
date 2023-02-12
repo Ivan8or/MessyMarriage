@@ -1,0 +1,23 @@
+{
+  "pairs" : [
+    {
+      "pairID" : "7a71b939-4f82-3812-9be3-8fcb90a01098",
+      "members":
+      [
+        "aff377a1-f59c-4f1f-b69a-e8cfa126f952",
+        "101ce388-a2b6-35d0-9456-2669c6860d57"
+      ]
+    },
+    {
+      "pairID" : "39425181-7531-43b9-9194-3ffb73facad0",
+      "members":
+      [
+        "bb430b20-337d-4505-abaf-0f31fd9fb77e",
+        "e454dc6f-05f5-41e6-9c72-beccfbb35215"
+      ]
+    }
+  ],
+  "marriages" : [
+    "39425181-7531-43b9-9194-3ffb73facad0"
+  ]
+}
