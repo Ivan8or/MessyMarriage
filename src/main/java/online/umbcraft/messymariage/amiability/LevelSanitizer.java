@@ -34,6 +34,16 @@ public class LevelSanitizer {
         this.pairs = pairs;
     }
 
+    public int getExp(final UUID pair) {
+        Optional<Integer> potentialExp = amiabilities.getAmiabilityExp(pair);
+
+        if(potentialExp.isEmpty()) {
+            amiabilities.setExp(pair, DEFAULT_EXP_AMOUNT);
+            return DEFAULT_EXP_AMOUNT;
+        }
+        return potentialExp.get();
+    }
+
     public int getLevel(final UUID pair) {
         Optional<Integer> potentialLevel = amiabilities.getAmiabilityLevel(pair);
 

@@ -37,4 +37,19 @@ public class ExpLevelConverter {
         return CUMUL_LEVEL_EXP[level];
     }
 
+    public static int percentProgress(int exp) {
+        if(exp < 0)
+            return 0;
+        int levelAt = toLevel(exp);
+        int expNeeded = expForSingleLevel(levelAt + 1);
+
+        int priorLevelExp = toExp(levelAt);
+        int curLevelExp = exp - priorLevelExp;
+
+        double ratio = (curLevelExp / (double)expNeeded) * 100;
+        return (int) Math.floor(ratio);
+
+
+    }
+
 }

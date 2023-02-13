@@ -2,6 +2,7 @@ package online.umbcraft.messymariage.commands;
 
 import online.umbcraft.messymariage.amiability.LevelSanitizer;
 import online.umbcraft.messymariage.data.PairData;
+import online.umbcraft.messymariage.util.ExpLevelConverter;
 import online.umbcraft.messymariage.util.MessageUI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -84,7 +85,9 @@ public class AmiabilityCommand implements CommandExecutor, TabCompleter {
         }
 
         UUID pairID = pairs.pairID(sender.getUniqueId(), p2.getUniqueId());
-        String toSend = "&eYour amiability with "+p2.getName()+" is "+exp.getLevel(pairID)+".";
+        int level = exp.getLevel(pairID);
+        int levelProgress = ExpLevelConverter.percentProgress(exp.getExp(pairID));
+        String toSend = "&eYour amiability with "+p2.getName()+" is &6"+level+" &e(&6"+levelProgress+"%&e).";
         MessageUI.sendChatMessage(sender, toSend);
         return true;
     }
