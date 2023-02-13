@@ -14,6 +14,7 @@ import online.umbcraft.messymariage.crafting.listeners.CancelCustomItemsUse;
 import online.umbcraft.messymariage.crafting.DivorcePapers;
 import online.umbcraft.messymariage.crafting.WeddingBand;
 import online.umbcraft.messymariage.crafting.WeddingRing;
+import online.umbcraft.messymariage.crafting.listeners.RecipeList;
 import online.umbcraft.messymariage.data.AmiabilityData;
 import online.umbcraft.messymariage.data.PairData;
 import online.umbcraft.messymariage.data.cache.CachedAmiabilityData;
@@ -64,9 +65,14 @@ public final class MessyMarriage extends JavaPlugin {
 
         new AmiabilityCommand(this, levelSanitizer, pairData).start();
 
-        new WeddingRing(this).start();
-        new WeddingBand(this).start();
-        new DivorcePapers(this).start();
+
+        RecipeList recipes = new RecipeList(this);
+
+        new WeddingRing(this, recipes).start();
+        new WeddingBand(this, recipes).start();
+        new DivorcePapers(this, recipes).start();
+
+        recipes.start();
 
         new CancelCustomItemsUse(this).start();
     }

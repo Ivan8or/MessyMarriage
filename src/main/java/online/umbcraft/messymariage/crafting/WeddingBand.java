@@ -1,5 +1,6 @@
 package online.umbcraft.messymariage.crafting;
 
+import online.umbcraft.messymariage.crafting.listeners.RecipeList;
 import online.umbcraft.messymariage.util.CustomItemIdentifier;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -14,9 +15,11 @@ import java.util.List;
 public class WeddingBand {
 
     final private Plugin plugin;
+    final private RecipeList recipes;
 
-    public WeddingBand(Plugin plugin) {
+    public WeddingBand(Plugin plugin, RecipeList recipes) {
         this.plugin = plugin;
+        this.recipes = recipes;
     }
 
     public void start() {
@@ -33,7 +36,9 @@ public class WeddingBand {
         CustomItemIdentifier.giveTag(plugin, ringBox, "wedding-item");
         CustomItemIdentifier.makeCustom(plugin, ringBox);
 
-        ShapedRecipe ringRecipe = new ShapedRecipe(new NamespacedKey(plugin, "wedding-band-recipe"), ringBox);
+        NamespacedKey key = new NamespacedKey(plugin, "wedding-band-recipe");
+        recipes.addRecipe(key);
+        ShapedRecipe ringRecipe = new ShapedRecipe(key, ringBox);
 
         String[] shape = {
                 "xxx",

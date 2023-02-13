@@ -1,6 +1,7 @@
 package online.umbcraft.messymariage.crafting;
 
 import online.umbcraft.messymariage.amiability.LevelSanitizer;
+import online.umbcraft.messymariage.crafting.listeners.RecipeList;
 import online.umbcraft.messymariage.data.PairData;
 import online.umbcraft.messymariage.util.CustomItemIdentifier;
 import org.bukkit.ChatColor;
@@ -18,9 +19,11 @@ import java.util.List;
 public class WeddingRing {
 
     final private Plugin plugin;
+    final private RecipeList recipes;
 
-    public WeddingRing(Plugin plugin) {
+    public WeddingRing(Plugin plugin, RecipeList recipes) {
         this.plugin = plugin;
+        this.recipes = recipes;
     }
 
     public void start() {
@@ -37,7 +40,9 @@ public class WeddingRing {
         CustomItemIdentifier.giveTag(plugin, ringBox, "wedding-item");
         CustomItemIdentifier.makeCustom(plugin, ringBox);
 
-        ShapedRecipe ringRecipe = new ShapedRecipe(new NamespacedKey(plugin, "wedding-ring-recipe"), ringBox);
+        NamespacedKey key = new NamespacedKey(plugin, "wedding-ring-recipe");
+        recipes.addRecipe(key);
+        ShapedRecipe ringRecipe = new ShapedRecipe(key, ringBox);
 
         String[] shape = {
                 "xDx",
