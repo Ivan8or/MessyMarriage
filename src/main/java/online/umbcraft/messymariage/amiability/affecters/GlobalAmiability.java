@@ -13,13 +13,13 @@ import org.bukkit.util.Vector;
 
 import java.util.UUID;
 
-public class GlobalAmiabilityEffects implements Listener {
+public class GlobalAmiability implements Listener {
 
     final private Plugin plugin;
     final private LevelSanitizer exp;
     final private PairData pairs;
 
-    public GlobalAmiabilityEffects(Plugin plugin, LevelSanitizer exp, PairData pairs) {
+    public GlobalAmiability(Plugin plugin, LevelSanitizer exp, PairData pairs) {
         this.plugin = plugin;
         this.pairs = pairs;
         this.exp = exp;

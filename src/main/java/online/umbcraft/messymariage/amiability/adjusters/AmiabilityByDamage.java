@@ -2,14 +2,11 @@ package online.umbcraft.messymariage.amiability.adjusters;
 
 import online.umbcraft.messymariage.amiability.LevelSanitizer;
 import online.umbcraft.messymariage.data.PairData;
-import online.umbcraft.messymariage.util.SafePlayerDistance;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.plugin.Plugin;
 
 import java.util.*;
