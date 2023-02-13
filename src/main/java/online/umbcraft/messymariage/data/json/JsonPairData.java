@@ -1,15 +1,12 @@
 package online.umbcraft.messymariage.data.json;
 
-import online.umbcraft.messymariage.MessyMarriage;
 import online.umbcraft.messymariage.data.PairData;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.*;
-import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -111,11 +108,11 @@ public class JsonPairData implements PairData {
     @Override
     public Set<UUID> allMarriages() {
         JSONArray marriages = (JSONArray) root.get("marriages");
+
         return (Set<UUID>) marriages
                 .stream()
                 .map(m -> UUID.fromString((String) m))
                 .collect(Collectors.toSet());
-
     }
 
     @Override
@@ -128,7 +125,10 @@ public class JsonPairData implements PairData {
             UUID pairID = UUID.fromString((String) entry.get("pairID"));
 
             JSONArray members = (JSONArray) entry.get("members");
-            Set<UUID> memberSet = Set.copyOf(members);
+            Set<UUID> memberSet = new HashSet<>();
+            for(Object member : members) {
+                memberSet.add(UUID.fromString((String)member));
+            }
 
             toReturn.put(pairID, memberSet);
         }

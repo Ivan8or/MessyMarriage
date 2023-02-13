@@ -16,6 +16,9 @@ public class CachedPairData implements PairData {
         this.primary = primary;
         this.secondary = secondary;
 
+        // order is IMPORTANT!!!
+        primary.setPairings(secondary.allPairings());
+        primary.setMarriages(secondary.allMarriages());
     }
 
     @Override
