@@ -29,7 +29,6 @@ public class MarriageDamageTransfer implements Listener {
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void onDamagePlayer(final EntityDamageEvent e) {
-
         if(!(e.getEntity() instanceof Player))
             return;
 
@@ -48,15 +47,17 @@ public class MarriageDamageTransfer implements Listener {
 
         int marriageLevel = levelSanitizer.getLevel(marriageID);
 
+        double rawDamage = e.getDamage();
         double originalDamage = e.getFinalDamage();
         double reduceMult = damageReductionAmount(marriageLevel);
 
-
-        double excess = Math.max(0, Math.min(originalDamage * reduceMult, partnerPlayer.getHealth()-1));
+        double excess = Math.min(originalDamage * reduceMult, partnerPlayer.getHealth()-1);
         double reducedDamage = originalDamage - excess;
 
-        e.setDamage(0);
-        victim.setHealth(Math.max(0, victim.getHealth() - reducedDamage));
+        double rawToFinal = rawDamage / originalDamage;
+        double newRawDamage = rawToFinal * reducedDamage;
+
+        e.setDamage(newRawDamage);
         partnerPlayer.setHealth(partnerPlayer.getHealth() - excess);
     }
 
