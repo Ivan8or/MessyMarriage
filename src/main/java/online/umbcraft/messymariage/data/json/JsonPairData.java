@@ -158,6 +158,9 @@ public class JsonPairData implements PairData {
 
     @Override
     public void marry(UUID pair) {
+        if(isMarriage(pair))
+            return;
+
         JSONArray marriages = (JSONArray) root.get("marriages");
         marriages.add(pair.toString());
         writePairFile();
@@ -165,8 +168,23 @@ public class JsonPairData implements PairData {
 
     @Override
     public void unmarry(UUID pair) {
+        if(!isMarriage(pair))
+            return;
+
         JSONArray marriages = (JSONArray) root.get("marriages");
         marriages.remove(pair.toString());
         writePairFile();
+    }
+
+    @Override
+    public void setPairings(Map<UUID, Set<UUID>> pairings) {
+        throw new UnsupportedOperationException("not implemented");
+        // TODO implement
+    }
+
+    @Override
+    public void setMarriages(Set<UUID> marriages) {
+        throw new UnsupportedOperationException("not implemented");
+        // TODO implement
     }
 }

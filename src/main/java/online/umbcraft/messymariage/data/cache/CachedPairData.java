@@ -15,6 +15,7 @@ public class CachedPairData implements PairData {
     public CachedPairData(PairData primary, PairData secondary) {
         this.primary = primary;
         this.secondary = secondary;
+
     }
 
     @Override
@@ -78,5 +79,17 @@ public class CachedPairData implements PairData {
     public void unmarry(UUID pair) {
         primary.unmarry(pair);
         secondary.unmarry(pair);
+    }
+
+    @Override
+    public void setPairings(Map<UUID, Set<UUID>> pairings) {
+        primary.setPairings(pairings);
+        secondary.setPairings(pairings);
+    }
+
+    @Override
+    public void setMarriages(Set<UUID> marriages) {
+        primary.setMarriages(marriages);
+        secondary.setMarriages(marriages);
     }
 }

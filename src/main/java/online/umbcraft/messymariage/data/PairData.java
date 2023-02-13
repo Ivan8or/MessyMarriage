@@ -29,6 +29,10 @@ public interface PairData {
 
     void unmarry(UUID pair);
 
+    void setPairings(Map<UUID, Set<UUID>> pairings);
+
+    void setMarriages(Set<UUID> marriages);
+
     static UUID generatePairID(UUID a, UUID b) {
 
         // upper halves of each uuid

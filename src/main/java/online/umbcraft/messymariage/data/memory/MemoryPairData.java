@@ -58,6 +58,10 @@ public class MemoryPairData implements PairData {
 
     @Override
     public void marry(UUID pair) {
+
+        if(marriageIDs.contains(pair))
+            return;
+
         marriageIDs.add(pair);
 
         Set<UUID> members = pairs.get(pair);
@@ -68,12 +72,32 @@ public class MemoryPairData implements PairData {
 
     @Override
     public void unmarry(UUID pair) {
+
+        if(!marriageIDs.contains(pair))
+            return;
+
         marriageIDs.remove(pair);
 
         Set<UUID> members = pairs.get(pair);
 
         for(UUID member : members)
             playerMarriages.remove(member);
+    }
+
+    @Override
+    public void setPairings(Map<UUID, Set<UUID>> pairings) {
+        pairs.putAll(pairings);
+    }
+
+    @Override
+    public void setMarriages(Set<UUID> marriages) {
+        marriageIDs.addAll(marriages);
+
+        for(UUID pair : marriages) {
+            Set<UUID> members = pairs.get(pair);
+            for(UUID member : members)
+                playerMarriages.put(member, pair);
+        }
     }
 
     @Override
