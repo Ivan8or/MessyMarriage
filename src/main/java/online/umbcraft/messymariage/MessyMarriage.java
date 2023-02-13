@@ -4,6 +4,7 @@ import online.umbcraft.messymariage.amiability.LevelSanitizer;
 import online.umbcraft.messymariage.amiability.adjusters.AmiabilityByBed;
 import online.umbcraft.messymariage.amiability.adjusters.AmiabilityByProximity;
 import online.umbcraft.messymariage.amiability.affecters.GlobalAmiabilityEffects;
+import online.umbcraft.messymariage.commands.AmiabilityCommand;
 import online.umbcraft.messymariage.data.AmiabilityData;
 import online.umbcraft.messymariage.data.PairData;
 import online.umbcraft.messymariage.data.cache.CachedAmiabilityData;
@@ -43,8 +44,11 @@ public final class MessyMarriage extends JavaPlugin {
 
 
         new AmiabilityByProximity(this, levelSanitizer, pairData).start();
-        new GlobalAmiabilityEffects(this, levelSanitizer, pairData).start();
         new AmiabilityByBed(this, levelSanitizer, pairData).start();
+
+        new GlobalAmiabilityEffects(this, levelSanitizer, pairData).start();
+
+        new AmiabilityCommand(this, levelSanitizer, pairData).start();
     }
 
     @Override

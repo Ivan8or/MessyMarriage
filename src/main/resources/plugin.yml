@@ -2,3 +2,7 @@ name: MessyMarriage
 version: @VERSION@
 main: online.umbcraft.messymariage.MessyMarriage
 api-version: 1.19
+authors: [Ivan8or]
+commands:
+  amiability:
+    description: checks amiability levels of player pairs
