@@ -10,7 +10,7 @@ import online.umbcraft.messymariage.amiability.affecters.GlobalAmiability;
 import online.umbcraft.messymariage.amiability.affecters.MarriageDamageTransfer;
 import online.umbcraft.messymariage.amiability.affecters.MarryGesture;
 import online.umbcraft.messymariage.commands.AmiabilityCommand;
-import online.umbcraft.messymariage.crafting.CancelCustomItemsUse;
+import online.umbcraft.messymariage.crafting.listeners.CancelCustomItemsUse;
 import online.umbcraft.messymariage.crafting.DivorcePapers;
 import online.umbcraft.messymariage.crafting.WeddingBand;
 import online.umbcraft.messymariage.crafting.WeddingRing;

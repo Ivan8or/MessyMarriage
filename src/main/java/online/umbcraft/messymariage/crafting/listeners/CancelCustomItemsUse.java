@@ -1,4 +1,4 @@
-package online.umbcraft.messymariage.crafting;
+package online.umbcraft.messymariage.crafting.listeners;
 
 import online.umbcraft.messymariage.util.CustomItemIdentifier;
 import org.bukkit.event.EventHandler;

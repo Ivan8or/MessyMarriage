@@ -67,6 +67,5 @@ public class DivorceGesture implements Listener {
                 "&c"+proposee.getName()+" and "+suitor.getName()+" have divorced!"));
 
         levelSanitizer.adjustAmiability(pairID, -1 * levelSanitizer.getExp(pairID));
-
     }
 }
