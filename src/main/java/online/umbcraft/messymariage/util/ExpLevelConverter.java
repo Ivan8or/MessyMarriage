@@ -12,21 +12,27 @@ public class ExpLevelConverter {
         }
     }
     private static int expForSingleLevel(int level) {
-        assert level >= 0 : "negative level can't have exp";
+        if(level < 0)
+            return 0;
+
         return (int)(100 + Math.pow(Math.E, 0.085*level));
     }
 
     public static int toLevel(int exp) {
-        assert exp >= 0 : "negative exp can't have level";
-        for(int i = 1; i < LEVEL_EXP.length; i++) {
+        if(exp < 0)
+            return 0;
+
+        for(int i = 1; i < LEVEL_EXP.length; i++)
             if(CUMUL_LEVEL_EXP[i] > exp)
                 return i-1;
-        }
+
         return CUMUL_LEVEL_EXP.length-1;
     }
 
     public static int toExp(int level) {
-        assert level >= 0 : "negative level can't have exp";
+        if(level < 0)
+            return 0;
+
         assert level < LEVEL_EXP.length : "level too high";
         return CUMUL_LEVEL_EXP[level];
     }

@@ -16,6 +16,8 @@ public class LevelSanitizer {
     final private AmiabilityData amiabilities;
     final private PairData pairs;
 
+    final static public int EXP_MIN_AMOUNT = 0;
+
     final static public int DEFAULT_LEVEL_AMOUNT = 0;
     final static public int DEFAULT_EXP_AMOUNT = ExpLevelConverter.toExp(DEFAULT_LEVEL_AMOUNT);
 
@@ -64,7 +66,7 @@ public class LevelSanitizer {
             currentEXP = result.orElse(DEFAULT_EXP_AMOUNT);
         }
 
-        int newEXP = currentEXP + increment;
+        int newEXP = Math.max(0, currentEXP + increment);
         int currentLevel = ExpLevelConverter.toLevel(currentEXP);
         int newLevel = ExpLevelConverter.toLevel(newEXP);
 
