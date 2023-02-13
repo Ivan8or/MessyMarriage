@@ -10,6 +10,7 @@ import online.umbcraft.messymariage.amiability.affecters.MarriageDamageTransfer;
 import online.umbcraft.messymariage.amiability.affecters.MarryGesture;
 import online.umbcraft.messymariage.commands.AmiabilityCommand;
 import online.umbcraft.messymariage.crafting.CancelCustomItemsUse;
+import online.umbcraft.messymariage.crafting.WeddingBand;
 import online.umbcraft.messymariage.crafting.WeddingRing;
 import online.umbcraft.messymariage.data.AmiabilityData;
 import online.umbcraft.messymariage.data.PairData;
@@ -61,6 +62,7 @@ public final class MessyMarriage extends JavaPlugin {
         new AmiabilityCommand(this, levelSanitizer, pairData).start();
 
         new WeddingRing(this).start();
+        new WeddingBand(this).start();
         new CancelCustomItemsUse(this).start();
     }
 
