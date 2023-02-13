@@ -12,7 +12,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
-import java.util.logging.Level;
 
 public class AmiabilityByProximity {
 
@@ -22,7 +21,7 @@ public class AmiabilityByProximity {
     final private LevelSanitizer levelSanitizer;
     final private PairData pairs;
 
-    final private static double DISTANCE_THRESHOLD = 48;
+    final private static double DISTANCE_THRESHOLD = 32;
 
     public AmiabilityByProximity(Plugin plugin, LevelSanitizer levelSanitizer, PairData pairs) {
         this.plugin = plugin;
@@ -34,7 +33,7 @@ public class AmiabilityByProximity {
 
         BukkitScheduler scheduler = plugin.getServer().getScheduler();
         long delay = 0L;
-        long period = TICKS_PER_SECOND * 5;
+        long period = TICKS_PER_SECOND * 60;
 
         Runnable task = () -> {
             Collection<? extends Player> players = plugin.getServer().getOnlinePlayers();
@@ -62,7 +61,7 @@ public class AmiabilityByProximity {
 
         boolean married = pairs.isMarriage(pairID);
 
-        int positiveAdjust = married ? 7 : 5;
+        int positiveAdjust = married ? 10 : 7;
         int negativeAdjust = married ? -3 : -2;
 
         if(distance < DISTANCE_THRESHOLD)

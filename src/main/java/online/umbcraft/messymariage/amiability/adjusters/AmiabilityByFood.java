@@ -37,7 +37,6 @@ public class AmiabilityByFood implements Listener {
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void onEatWithAnotherPlayer(final FoodLevelChangeEvent e) {
-
         if(e.getItem() == null)
             return;
 
@@ -50,14 +49,14 @@ public class AmiabilityByFood implements Listener {
 
         for(Map.Entry<UUID, Location> entry : justEaten.entrySet()) {
 
-            if(!(SafePlayerDistance.distance(entry.getValue(), ateAt) < 4))
+            if(SafePlayerDistance.distance(entry.getValue(), ateAt) > 5)
                 continue;
 
            processPair(playerUUID, entry.getKey());
         }
 
         justEaten.put(playerUUID, ateAt);
-        plugin.getServer().getScheduler().runTaskLater(plugin, () -> justEaten.remove(playerUUID), 30);
+        plugin.getServer().getScheduler().runTaskLater(plugin, () -> justEaten.remove(playerUUID), 25);
 
         levelSanitizer.flush();
     }
@@ -75,6 +74,7 @@ public class AmiabilityByFood implements Listener {
 
         boolean married = pairs.isMarriage(pairID);
         int expAmount = married ? MARRIAGE_EXP_GAIN : NON_MARRIAGE_EXP_GAIN;
+
 
         levelSanitizer.adjustAmiability(pairID, expAmount, false);
 
