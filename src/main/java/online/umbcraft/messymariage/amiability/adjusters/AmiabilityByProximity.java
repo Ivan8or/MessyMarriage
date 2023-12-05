@@ -21,7 +21,7 @@ public class AmiabilityByProximity {
     final private LevelSanitizer levelSanitizer;
     final private PairData pairs;
 
-    final private static double DISTANCE_THRESHOLD = 32;
+    final private static double DISTANCE_THRESHOLD = 64;
 
     public AmiabilityByProximity(Plugin plugin, LevelSanitizer levelSanitizer, PairData pairs) {
         this.plugin = plugin;
@@ -61,8 +61,8 @@ public class AmiabilityByProximity {
 
         boolean married = pairs.isMarriage(pairID);
 
-        int positiveAdjust = married ? 10 : 7;
-        int negativeAdjust = married ? -3 : -2;
+        int positiveAdjust = married ? 30 : 10;
+        int negativeAdjust = married ? -2 : -1;
 
         if(distance < DISTANCE_THRESHOLD)
             levelSanitizer.adjustAmiability(pairID, positiveAdjust, false);

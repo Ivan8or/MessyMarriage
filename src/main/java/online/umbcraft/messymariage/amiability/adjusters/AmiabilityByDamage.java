@@ -17,8 +17,8 @@ public class AmiabilityByDamage implements Listener {
     final private LevelSanitizer levelSanitizer;
     final private PairData pairs;
 
-    final private int NON_MARRIAGE_EXP_LOSS = -50;
-    final private int MARRIAGE_EXP_LOSS = -200;
+    final private int NON_MARRIAGE_EXP_LOSS = -30;
+    final private int MARRIAGE_EXP_LOSS = -100;
 
 
     public AmiabilityByDamage(Plugin plugin, LevelSanitizer levelSanitizer, PairData pairs) {

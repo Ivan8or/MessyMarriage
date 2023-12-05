@@ -4,7 +4,6 @@ import online.umbcraft.messymariage.amiability.LevelSanitizer;
 import online.umbcraft.messymariage.data.PairData;
 import online.umbcraft.messymariage.util.ExpLevelConverter;
 import online.umbcraft.messymariage.util.MessageUI;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -14,9 +13,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.StringUtil;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 

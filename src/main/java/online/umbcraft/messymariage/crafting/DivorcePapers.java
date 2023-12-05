@@ -27,7 +27,7 @@ public class DivorcePapers {
         ItemMeta ringMeta = ringBox.getItemMeta();
         ringMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&',"&cDivorce Papers"));
         ringMeta.setLore(List.of(
-                ChatColor.translateAlternateColorCodes('&',"&7Use this band to file for divorce!"),
+                ChatColor.translateAlternateColorCodes('&',"&7Use this item to file for divorce!"),
                 ChatColor.translateAlternateColorCodes('&',"&7Be wary of the consequences...")
         ));
 

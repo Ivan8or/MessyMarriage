@@ -19,8 +19,11 @@ public class AmiabilityByFood implements Listener {
     final private LevelSanitizer levelSanitizer;
     final private PairData pairs;
 
-    final private int NON_MARRIAGE_EXP_GAIN = 8;
-    final private int MARRIAGE_EXP_GAIN = 12;
+    final private int NON_MARRIAGE_EXP_GAIN = 50;
+    final private int MARRIAGE_EXP_GAIN = 150;
+
+    final private int SECONDS_COOLDOWN = 60;
+    final private int MAX_DISTANCE = 5;
 
     final private Set<UUID> pairsOnCooldown = new HashSet<>();
     final private Map<UUID, Location> justEaten = new HashMap<>();
@@ -49,7 +52,7 @@ public class AmiabilityByFood implements Listener {
 
         for(Map.Entry<UUID, Location> entry : justEaten.entrySet()) {
 
-            if(SafePlayerDistance.distance(entry.getValue(), ateAt) > 5)
+            if(SafePlayerDistance.distance(entry.getValue(), ateAt) > MAX_DISTANCE)
                 continue;
 
            processPair(playerUUID, entry.getKey());
@@ -69,8 +72,11 @@ public class AmiabilityByFood implements Listener {
         if(pairsOnCooldown.contains(pairID))
             return;
 
+        if(p1.equals(p2))
+            return;
+
         pairsOnCooldown.add(pairID);
-        plugin.getServer().getScheduler().runTaskLater(plugin, () -> pairsOnCooldown.remove(pairID), 20 * 45);
+        plugin.getServer().getScheduler().runTaskLater(plugin, () -> pairsOnCooldown.remove(pairID), 20 * SECONDS_COOLDOWN);
 
         boolean married = pairs.isMarriage(pairID);
         int expAmount = married ? MARRIAGE_EXP_GAIN : NON_MARRIAGE_EXP_GAIN;

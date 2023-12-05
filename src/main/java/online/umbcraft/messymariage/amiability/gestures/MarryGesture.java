@@ -1,4 +1,4 @@
-package online.umbcraft.messymariage.amiability.affecters;
+package online.umbcraft.messymariage.amiability.gestures;
 
 import online.umbcraft.messymariage.amiability.LevelSanitizer;
 import online.umbcraft.messymariage.data.PairData;

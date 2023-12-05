@@ -18,8 +18,8 @@ public class AmiabilityByBed implements Listener {
     final private LevelSanitizer levelSanitizer;
     final private PairData pairs;
 
-    final private int NON_MARRIAGE_EXP_GAIN = 100;
-    final private int MARRIAGE_EXP_GAIN = 150;
+    final private int NON_MARRIAGE_EXP_GAIN = 300;
+    final private int MARRIAGE_EXP_GAIN = 750;
 
     public AmiabilityByBed(Plugin plugin, LevelSanitizer levelSanitizer, PairData pairs) {
         this.plugin = plugin;
