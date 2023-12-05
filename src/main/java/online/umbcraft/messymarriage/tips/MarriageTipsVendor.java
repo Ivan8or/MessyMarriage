@@ -1,5 +1,6 @@
 package online.umbcraft.messymarriage.tips;
 
+import org.bukkit.ChatColor;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -40,7 +41,8 @@ public class MarriageTipsVendor {
                 plugin.getServer().getScheduler().runTaskTimer(plugin, () -> {
                     if(plugin.getServer().getOnlinePlayers().size() > 0) {
                         String fullMessage = TIPS_PREFIX + TIPS_LIST.get(index);
-                        plugin.getServer().broadcastMessage(fullMessage);
+                        plugin.getServer().broadcastMessage(
+                                ChatColor.translateAlternateColorCodes('&', fullMessage));
                         index = (index + 1) % TIPS_LIST.size();
                     }
                 }, 0, ticks)
