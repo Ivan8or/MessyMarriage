@@ -1,6 +1,6 @@
 name: MessyMarriage
 version: @VERSION@
-main: online.umbcraft.messymariage.MessyMarriage
+main: online.umbcraft.messymarriage.MessyMarriage
 api-version: 1.19
 authors: [Ivan8or]
 commands:
